@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Story: New Oceania</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<script>
+    // Check for global degradation setting
+    if (localStorage.getItem('dystopianDegraded') === 'true') {
+      document.body.classList.add('body-degraded');
+
+      // Optional: Show small indicator
+      const degradedNotice = document.createElement('div');
+      degradedNotice.innerHTML = `
+        <div style="position:fixed; bottom:10px; left:10px; padding:5px 10px;
+        background:rgba(255,0,0,0.3); border-left:3px solid red; font-size:0.8rem;">
+          <i class="fas fa-triangle-exclamation"></i> Collective Happiness Degraded
+        </div>
+      `;
+      document.body.appendChild(degradedNotice);
+    }
+  </script>
+<body>
+  <header>
+    <h1>New Oceania: Your Choices Decide</h1>
+    <a href="index.html" class="btn">← Back to Home</a>
+  </header>
+
+  <main class="story-container">
+    <div id="story-text">
+      <p>You are <strong>Winston Marx</strong>, an Alpha in New Oceania—a fusion of the World State's genetic engineering and the Party's surveillance. Your coworker, <strong>Lenina Crowne</strong>, offers you a soma pill to ease your anxiety after a long day of altering records at the Ministry of Truth.</p>
+      <p>"Happiness is a duty, Winston," she says, smiling. The pill glows faintly in her palm.</p>
+    </div>
+    <div class="choice-container">
+  <button class="story-btn soma-btn" onclick="window.location.href='story-bnw.html'">
+    "Happiness is a duty" (Take soma)
+  </button>
+  <button class="story-btn truth-btn" onclick="window.location.href='story-1984.html'">
+    "I want the truth" (Refuse)
+  </button>
+</div>
+
+<style>
+  .choice-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 30px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .story-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+
+  .soma-btn {
+    background: linear-gradient(135deg, #4b6cb7, #182848);
+    color: white;
+    border-left: 4px solid #05d9e8;
+  }
+
+  .truth-btn {
+    background: linear-gradient(135deg, #b24592, #f15f79);
+    color: white;
+    border-left: 4px solid #ff2a6d;
+  }
+
+  .story-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+  }
+
+  .story-btn:active {
+    transform: translateY(1px);
+  }
+</style>
+  </main>
+</body>
+</html>

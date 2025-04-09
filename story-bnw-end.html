@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ending: Brave New World</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<script>
+    // Check for global degradation setting
+    if (localStorage.getItem('dystopianDegraded') === 'true') {
+      document.body.classList.add('body-degraded');
+
+      // Optional: Show small indicator
+      const degradedNotice = document.createElement('div');
+      degradedNotice.innerHTML = `
+        <div style="position:fixed; bottom:10px; left:10px; padding:5px 10px;
+        background:rgba(255,0,0,0.3); border-left:3px solid red; font-size:0.8rem;">
+          <i class="fas fa-triangle-exclamation"></i> Collective Happiness Degraded
+        </div>
+      `;
+      document.body.appendChild(degradedNotice);
+    }
+  </script>
+<body>
+  <header>
+    <h1>Ending: Happiness Without Freedom</h1>
+    <a href="story.html" class="btn">← Restart Story</a>
+  </header>
+
+  <main class="story-container">
+    <div id="story-text">
+      <p>You oversee the Hatchery, watching as thousands of identical Epsilons are bottled. Soma flows freely. The Director praises you: "You’ve embraced your purpose."</p>
+      <p>Years later, you hear rumors of a "Savage" who starved himself to death in a lighthouse. You take a soma pill and forget.</p>
+      <div class="ending-theme">
+        <strong>Theme:</strong> Stability requires the sacrifice of individuality.
+      </div>
+    </div>
+    <a href="index.html" class="btn">Return to Home</a>
+  </main>
+</body>
+</html>

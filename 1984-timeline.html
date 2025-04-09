@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1984 | Complete Story Timeline</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Timeline styling */
+    .timeline-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 8px;
+      transition: all 0.5s;
+    }
+    .timeline-event {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #e74c3c;
+      border-radius: 4px;
+      transition: all 0.5s;
+    }
+    .timeline-event h3 {
+      color: #e74c3c;
+      margin-top: 0;
+    }
+    .theme-box {
+      background: rgba(231, 76, 60, 0.1);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    blockquote {
+      font-style: italic;
+      border-left: 3px solid #eee;
+      padding-left: 1rem;
+      margin: 1.5rem 0;
+    }
+
+    /* Degraded Mode Styles */
+    .body-degraded .timeline-container {
+      background: #111;
+      border: 1px solid #444;
+    }
+    .body-degraded .timeline-event {
+      background: rgba(0,0,0,0.3);
+      border-left: 4px solid #666;
+    }
+    .body-degraded .timeline-event h3 {
+      color: #999;
+    }
+    .body-degraded blockquote {
+      border-left-color: #666;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>1984: Complete Story Timeline</h1>
+    <a href="index.html" class="btn">← Back to Home</a>
+  </header>
+
+  <main class="timeline-container">
+    <div class="timeline-event">
+      <h3>Oceania: A Totalitarian Nightmare</h3>
+      <p>In the year 1984, the world is divided into three superstates. Oceania, where protagonist Winston Smith lives, is ruled by the Party and its omnipresent leader <strong>Big Brother</strong>. Key features of this society:</p>
+      <ul>
+        <li><strong>Surveillance:</strong> Telescreens monitor citizens 24/7. The Thought Police crush dissent.</li>
+        <li><strong>Newspeak:</strong> Language is simplified to eliminate rebellious thoughts.</li>
+        <li><strong>Doublethink:</strong> Citizens must accept contradictions (e.g., "War is Peace").</li>
+      </ul>
+      <div class="theme-box">
+        <strong>Theme:</strong> Totalitarianism destroys truth, memory, and individuality.
+      </div>
+    </div>
+
+    <div class="timeline-event">
+      <h3>Winston Smith: The Rebellious Everyman</h3>
+      <p>Winston, a middle-aged Party member, secretly hates the regime. His small acts of rebellion:</p>
+      <ul>
+        <li>Keeps a forbidden diary (a "thoughtcrime").</li>
+        <li>Works at the <strong>Ministry of Truth</strong>, rewriting history to match Party propaganda.</li>
+        <li>Dreams of the Brotherhood, a mythical resistance group.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-event">
+      <h3>Julia: The Pragmatic Rebel</h3>
+      <p>Winston meets Julia, a younger Party member who secretly loathes the system. Unlike Winston (who cares about truth), Julia rebels for personal freedom:</p>
+      <ul>
+        <li>She has secret affairs with Party men (a crime).</li>
+        <li>She brings Winston real coffee, chocolate, and other black-market luxuries.</li>
+        <li>They rent a room above Mr. Charrington's shop for their trysts.</li>
+      </ul>
+      <div class="theme-box">
+        <strong>Theme:</strong> Even under oppression, humans seek intimacy and pleasure.
+      </div>
+    </div>
+
+    <div class="timeline-event">
+      <h3>O'Brien: The Party's Enforcer</h3>
+      <p>Winston believes O'Brien is part of the Brotherhood. In reality:</p>
+      <ul>
+        <li>O'Brien tricks Winston and Julia into confessing their crimes.</li>
+        <li>He oversees Winston's torture in the <strong>Ministry of Love</strong>.</li>
+        <li>His goal isn't just punishment—it's to make Winston <em>love Big Brother</em>.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-event">
+      <h3>Room 101: The Breaking Point</h3>
+      <p>The climax of Winston's torture:</p>
+      <ul>
+        <li>O'Brien straps a cage of rats to Winston's face (his worst fear).</li>
+        <li>Winston betrays Julia, screaming "Do it to her!" to save himself.</li>
+        <li>He is released, a broken man who now genuinely loves Big Brother.</li>
+      </ul>
+      <div class="theme-box">
+        <strong>Theme:</strong> Totalitarianism wins by destroying the human spirit.
+      </div>
+    </div>
+
+    <div class="timeline-event">
+      <h3>Key Quotes</h3>
+      <blockquote>"War is peace. Freedom is slavery. Ignorance is strength." <br>— Party slogan</blockquote>
+      <blockquote>"If you want a picture of the future, imagine a boot stamping on a human face—forever." <br>— O'Brien</blockquote>
+    </div>
+  </main>
+
+  <footer>
+    <p>Explore the interactive story or take the quiz to see which character you are!</p>
+    <a href="story.html" class="btn">Interactive Story</a>
+    <a href="quiz.html" class="btn">Character Quiz</a>
+  </footer>
+
+  <!-- Degradation Check (add this to ALL pages) -->
+  <script>
+    // Check for global degradation setting
+    if (localStorage.getItem('dystopianDegraded') === 'true') {
+      document.body.classList.add('body-degraded');
+
+      // Optional: Show small indicator
+      const degradedNotice = document.createElement('div');
+      degradedNotice.innerHTML = `
+        <div style="position:fixed; bottom:10px; left:10px; padding:5px 10px;
+        background:rgba(255,0,0,0.3); border-left:3px solid red; font-size:0.8rem;">
+          <i class="fas fa-triangle-exclamation"></i> Collective Happiness Degraded
+        </div>
+      `;
+      document.body.appendChild(degradedNotice);
+    }
+  </script>
+</body>
+</html>

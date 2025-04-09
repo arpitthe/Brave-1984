@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brave New World | Full Story Summary</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Additional styling for the timeline */
+    .timeline-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      background: rgba(30, 30, 30, 0.8);
+      border-radius: 8px;
+    }
+    .timeline-event {
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-left: 4px solid #3498db;
+      border-radius: 4px;
+    }
+    .timeline-event h3 {
+      color: #3498db;
+      margin-top: 0;
+    }
+    .theme-box {
+      background: rgba(52, 152, 219, 0.1);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<script>
+    // Check for global degradation setting
+    if (localStorage.getItem('dystopianDegraded') === 'true') {
+      document.body.classList.add('body-degraded');
+
+      // Optional: Show small indicator
+      const degradedNotice = document.createElement('div');
+      degradedNotice.innerHTML = `
+        <div style="position:fixed; bottom:10px; left:10px; padding:5px 10px;
+        background:rgba(255,0,0,0.3); border-left:3px solid red; font-size:0.8rem;">
+          <i class="fas fa-triangle-exclamation"></i> Collective Happiness Degraded
+        </div>
+      `;
+      document.body.appendChild(degradedNotice);
+    }
+  </script>
+<body>
+  <header>
+    <h1>Brave New World: Complete Story Timeline</h1>
+    <a href="index.html" class="btn">← Back to Home</a>
+  </header>
+
+  <main class="timeline-container">
+    <div class="timeline-event">
+      <h3>The World State: A "Perfect" Society</h3>
+      <p>Set in AF 632 (2540 AD), the World State has eliminated suffering through:</p>
+      <ul>
+        <li><strong>Genetic Engineering:</strong> Humans are bred in Hatcheries as Alphas (leaders), Betas (technicians), or lower castes (Gammas, Deltas, Epsilons).</li>
+        <li><strong>Conditioning:</strong> Children are brainwashed to love their social role and consume goods.</li>
+        <li><strong>Soma:</strong> A drug that induces instant happiness, replacing religion and art.</li>
+      </ul>
+      <div class="theme-box">
+        <strong>Theme:</strong> Technology dehumanizes society in exchange for stability.
+      </div>
+    </div>
+
+    <div class="timeline-event">
+      <h3>Bernard Marx: The Misfit Alpha</h3>
+      <p>Bernard, a psychologist, feels alienated due to his small stature (rumored to be a cloning error). Despite his high caste, he:</p>
+      <ul>
+        <li>Criticizes the State’s promiscuity and soma use.</li>
+        <li>Secretly desires monogamy and genuine emotion.</li>
+        <li>Uses his status to visit a "Savage Reservation" (New Mexico), where uncivilized humans live.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-event">
+      <h3>Lenina Crowne: The Conformist Beta</h3>
+      <p>Lenina is a vaccination worker conditioned to enjoy casual sex and consumerism. Her conflict arises when:</p>
+      <ul>
+        <li>She develops unorthodox feelings for Bernard.</li>
+        <li>She visits the Savage Reservation and is horrified by its poverty and religion.</li>
+      </ul>
+    </div>
+
+    <div class="timeline-event">
+      <h3>John the Savage: The Outsider</h3>
+      <p>Born to a World State citizen (Linda) but raised on the Reservation, John embodies humanity’s lost virtues:</p>
+      <ul>
+        <li>He reads Shakespeare, valuing love, suffering, and individuality.</li>
+        <li>He returns to London with Bernard, becoming a celebrity for his "exotic" views.</li>
+        <li>He rejects soma, promiscuity, and the State’s empty pleasures.</li>
+      </ul>
+      <div class="theme-box">
+        <strong>Theme:</strong> True humanity requires freedom, even if it brings pain.
+      </div>
+    </div>
+
+    <div class="timeline-event">
+      <h3>The Downfall: John vs. the World State</h3>
+      <p>John’s rebellion escalates:</p>
+      <ul>
+        <li>He publicly destroys soma rations, inciting a riot.</li>
+        <li>He retreats to an isolated lighthouse, self-flagellating to purify himself.</li>
+        <li>Mobsters film his suffering as entertainment, driving him to suicide.</li>
+      </ul>
+      <div class="theme-box">
+        <strong>Ending:</strong> The State’s control is absolute; individuality is crushed.
+      </div>
+    </div>
+
+    <div class="timeline-event">
+      <h3>Key Quotes</h3>
+      <blockquote>"Everyone belongs to everyone else." <br>— World State slogan</blockquote>
+      <blockquote>"I want God, I want poetry, I want real danger, I want freedom!" <br>— John the Savage</blockquote>
+    </div>
+  </main>
+
+  <footer>
+    <p>Explore the interactive story or take the quiz to see which character you are!</p>
+    <a href="story.html" class="btn">Interactive Story</a>
+    <a href="quiz.html" class="btn">Character Quiz</a>
+  </footer>
+</body>
+</html>

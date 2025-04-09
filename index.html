@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neon Dystopia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === CYBERPUNK NEON THEME === */
+    :root {
+      --neon-pink: #ff2a6d;
+      --neon-blue: #05d9e8;
+      --neon-purple: #d300c5;
+      --neon-green: #0afeb7;
+      --dark-bg: #0a0a12;
+      --darker-bg: #050508;
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background:
+        linear-gradient(rgba(5, 5, 8, 0.85), rgba(5, 5, 8, 0.85)),
+        url('./images/distopiabg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #e0e0ff;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      margin: 3rem auto;
+      padding: 2rem;
+      position: relative;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.5rem;
+      background: linear-gradient(
+        to right,
+        var(--neon-blue),
+        var(--neon-pink)
+      );
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 10px rgba(5, 217, 232, 0.3);
+      letter-spacing: 2px;
+      margin: 0;
+    }
+
+    header p {
+      color: var(--neon-blue);
+      font-size: 1.3rem;
+      margin: 1rem 0 0;
+    }
+
+    /* Neon Grid */
+    .neon-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      max-width: 1000px;
+    }
+
+    @media (min-width: 768px) {
+      .neon-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    /* Cyberpunk Buttons with Neon Fade */
+    .neon-btn {
+      position: relative;
+      padding: 2.5rem;
+      border: none;
+      border-radius: 0;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.3rem;
+      font-weight: bold;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      color: black;
+      overflow: hidden;
+      transition: all 0.4s;
+      z-index: 1;
+      box-shadow:
+        0 0 10px currentColor,
+        inset 0 0 10px rgba(255,255,255,0.3);
+    }
+
+    /* Neon Fade Effect */
+    .neon-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(255,255,255,0.8) 50%,
+        transparent 55%
+      );
+      transform: rotate(30deg);
+      z-index: -1;
+      transition: all 0.6s;
+      opacity: 0;
+    }
+
+    .neon-btn:hover::before {
+      opacity: 0.7;
+      animation: neonShine 1.5s linear infinite;
+    }
+
+    @keyframes neonShine {
+      0% { transform: rotate(30deg) translate(-30%, -30%); }
+      100% { transform: rotate(30deg) translate(30%, 30%); }
+    }
+
+    /* Button Colors with Neon Glow */
+    .bnw-btn {
+      background: linear-gradient(
+        135deg,
+        var(--neon-purple) 0%,
+        #a00090 100%
+      );
+    }
+
+    .orwell-btn {
+      background: linear-gradient(
+        135deg,
+        var(--neon-pink) 0%,
+        #cc0044 100%
+      );
+    }
+
+    .story-btn {
+      background: linear-gradient(
+        135deg,
+        var(--neon-green) 0%,
+        #00b87a 100%
+      );
+    }
+
+    .quiz-btn {
+      background: linear-gradient(
+        135deg,
+        #f9f002 0%,
+        #d4b800 100%
+      );
+    }
+
+    .danger-btn {
+      background: linear-gradient(135deg, #ff0000, #800000) !important;
+      color: white !important;
+      border-left: 4px solid #ff2a6d !important;
+    }
+
+    /* Hover Effects */
+    .neon-btn:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 0 25px currentColor,
+        inset 0 0 20px rgba(255,255,255,0.5);
+      text-shadow: 0 0 5px black;
+    }
+
+    /* Button Icons */
+    .neon-btn i {
+      margin-right: 15px;
+      font-size: 1.8rem;
+      filter: drop-shadow(0 0 2px black);
+    }
+
+    /* Impossible Choice Styles */
+    .impossible-choice-container {
+      text-align: center;
+      margin: 3rem auto;
+    }
+
+    .choice-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: var(--dark-bg);
+      padding: 2rem;
+      border: 2px solid var(--neon-pink);
+      max-width: 600px;
+      text-align: center;
+    }
+
+    .choice-options {
+      display: flex;
+      gap: 20px;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .choice-btn {
+      padding: 1.5rem;
+      background: rgba(30,30,30,0.8);
+      border: 1px solid var(--neon-blue);
+      color: white;
+      cursor: pointer;
+      flex: 1;
+      min-width: 250px;
+      transition: all 0.3s;
+    }
+
+    .choice-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px currentColor;
+    }
+
+    .choice-btn i {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .global-stats {
+      margin-top: 2rem;
+      color: var(--neon-green);
+    }
+
+    /* Degraded mode styles */
+    .body-degraded {
+      filter: grayscale(80%) brightness(0.7);
+      background-image: none !important;
+      background-color: #111 !important;
+    }
+
+    .body-degraded header h1 {
+      color: #999 !important;
+      text-shadow: none !important;
+    }
+
+    .body-degraded .neon-btn {
+      box-shadow: none !important;
+      background: #333 !important;
+    }
+
+    footer {
+      text-align: center;
+      margin: 5rem auto 2rem;
+      padding: 2rem;
+      position: relative;
+      color: var(--neon-blue);
+      font-size: 0.9rem;
+    }
+
+    footer::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 25%;
+      width: 50%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        var(--neon-blue),
+        transparent
+      );
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NEON DYSTOPIA</h1>
+    <p>SYSTEM LINK: BRAVE_NEW_WORLD.1984</p>
+  </header>
+
+  <main>
+    <div class="neon-grid">
+      <a href="bnw-timeline.html" class="neon-btn bnw-btn">
+        <i class="fas fa-dna"></i>
+        BRAVE NEW WORLD
+      </a>
+
+      <a href="1984-timeline.html" class="neon-btn orwell-btn">
+        <i class="fas fa-eye"></i>
+        1984 TERMINAL
+      </a>
+
+      <a href="interrogation-sim.html" class="neon-btn story-btn">
+         <i class="fas fa-robot"></i>
+          TURING TEST
+      </a>
+
+      <a href="quiz.html" class="neon-btn quiz-btn">
+        <i class="fas fa-question"></i>
+        IDENTITY SCAN
+      </a>
+    </div>
+
+    <div class="impossible-choice-container">
+      <button id="impossibleChoiceBtn" class="neon-btn danger-btn">
+        <i class="fas fa-handcuffs"></i> THE IMPOSSIBLE CHOICE
+      </button>
+      <div id="choiceModal" class="choice-modal">
+        <div class="modal-content">
+          <h2>DYSTOPIAN COMPLIANCE TEST</h2>
+          <p>For science, you must choose:</p>
+          <div class="choice-options">
+            <button id="freedomChoice" class="choice-btn">
+              <i class="fas fa-lock-open"></i> Sacrifice Personal Freedom<br>
+              <small>(Simulate system freeze for 10 seconds)</small>
+            </button>
+            <button id="happinessChoice" class="choice-btn">
+              <i class="fas fa-paint-brush"></i> Sacrifice Collective Happiness<br>
+              <small>(Degrade ALL PAGES for everyone)</small>
+            </button>
+          </div>
+          <div class="global-stats">
+            <p>Global choices: <span id="freedomCount">0</span> chose Freedom, <span id="happinessCount">0</span> chose Happiness</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+  <button onclick="localStorage.removeItem('dystopianDegraded'); location.reload();"
+          class="neon-btn" style="padding: 10px 20px; font-size: 0.9rem;">
+    <i class="fas fa-undo"></i> Reset All Degradation
+  </button>
+</div>
+  </main>
+
+  <footer>
+    <p>© 2077 NEON DYSTOPIA PROJECT | ALL SYSTEMS OPERATIONAL</p>
+  </footer>
+  <!-- Add this anywhere in your index.html (e.g., near the footer) -->
+<div class="surveillance-container">
+  <button id="surveillanceOptOut" class="surveillance-btn">
+    <i class="fas fa-eye-slash"></i> CLICK TO DISABLE SURVEILLANCE
+  </button>
+  <div id="surveillanceMessage" class="surveillance-message"></div>
+</div>
+
+<style>
+  /* Surveillance Opt-Out Styles */
+  .surveillance-container {
+    text-align: center;
+    margin: 3rem auto;
+    padding: 1rem;
+    border-top: 1px solid rgba(255, 0, 0, 0.3);
+  }
+
+  .surveillance-btn {
+    background: linear-gradient(135deg, #ff0000, #800000);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    font-family: 'Orbitron', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-left: 4px solid #ff2a6d;
+  }
+
+  .surveillance-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+  }
+
+  .surveillance-message {
+    margin-top: 1rem;
+    color: var(--neon-pink);
+    min-height: 2rem;
+    font-size: 0.9rem;
+  }
+
+  /* Webcam feed style */
+  #webcamFeed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 200px;
+    border: 3px solid red;
+    display: none;
+    z-index: 1000;
+  }
+</style>
+
+<script>
+  // Surveillance Opt-Out Logic
+  let clickCount = 0;
+  const optOutBtn = document.getElementById('surveillanceOptOut');
+  const messageDiv = document.getElementById('surveillanceMessage');
+
+  optOutBtn.addEventListener('click', () => {
+    clickCount++;
+
+    if (clickCount === 1) {
+      messageDiv.innerHTML = `
+        <i class="fas fa-exclamation-circle"></i>
+        Are you sure? 94% of citizens feel safer with monitoring
+      `;
+      optOutBtn.innerHTML = `<i class="fas fa-user-secret"></i> I INSIST ON PRIVACY`;
+
+    } else if (clickCount === 2) {
+      messageDiv.innerHTML = `
+        <i class="fas fa-check-circle"></i>
+        YOU ARE GONNA BE BLACKLISTED. ARE U SURE?
+      `;
+      optOutBtn.innerHTML = `<i class="fas fa-smile"></i>I DONT CARE TURN IT OFF`;
+
+    } else if (clickCount === 3) {
+      // Enable webcam "surveillance"
+      messageDiv.innerHTML = `
+        <i class="fas fa-camera"></i>
+         PERMISSION DENIED Smile! You're being protected, u r important member we have to keep checking on u
+      `;
+      optOutBtn.style.display = 'none';
+
+      // Create webcam feed
+      const webcamFeed = document.createElement('video');
+      webcamFeed.id = 'webcamFeed';
+      webcamFeed.autoplay = true;
+      document.body.appendChild(webcamFeed);
+
+      // Try to access webcam
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+          .then(stream => {
+            webcamFeed.srcObject = stream;
+            webcamFeed.style.display = 'block';
+
+            // Add ominous overlay text
+            const overlay = document.createElement('div');
+            overlay.innerHTML = `
+              <div style="position:absolute; bottom:0; left:0; right:0;
+              background:rgba(255,0,0,0.7); color:white; padding:5px; font-size:0.8rem;">
+                <i class="fas fa-eye"></i> PROTECTIVE SURVEILLANCE ACTIVE
+              </div>
+            `;
+            webcamFeed.appendChild(overlay);
+          })
+          .catch(() => {
+            // If webcam fails, show mock feed
+            webcamFeed.style.background = '#000';
+            webcamFeed.innerHTML = `
+              <div style="color:red; text-align:center; padding-top:50px;">
+                <i class="fas fa-user-slash fa-3x"></i><br>
+                CAMERA BLOCKED - SUSPICIOUS
+              </div>
+            `;
+            webcamFeed.style.display = 'block';
+          });
+      } else {
+        // Fallback if no webcam access
+        webcamFeed.innerHTML = `
+          <div style="color:red; text-align:center; padding-top:50px;">
+            <i class="fas fa-eye fa-3x"></i><br>
+            SURVEILLANCE SIMULATION ACTIVE
+          </div>
+        `;
+        webcamFeed.style.display = 'block';
+      }
+
+      // Remove after 10 seconds
+      setTimeout(() => {
+        webcamFeed.remove();
+        optOutBtn.style.display = 'block';
+        optOutBtn.innerHTML = `<i class="fas fa-eye-slash"></i> SURVEILLANCE RESTORED`;
+        messageDiv.innerHTML = `Protection services resumed`;
+        clickCount = 0;
+      }, 10000);
+    }
+  });
+</script>
+
+  <script>
+    // Track choices in localStorage
+    let choices = JSON.parse(localStorage.getItem('dystopianChoices')) || {
+      freedom: 0,
+      happiness: 0
+    };
+
+    // Check for existing degradation on page load
+    if (localStorage.getItem('dystopianDegraded') === 'true') {
+      document.body.classList.add('body-degraded');
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      const choiceBtn = document.getElementById('impossibleChoiceBtn');
+      const modal = document.getElementById('choiceModal');
+      const freedomChoice = document.getElementById('freedomChoice');
+      const happinessChoice = document.getElementById('happinessChoice');
+      const freedomCount = document.getElementById('freedomCount');
+      const happinessCount = document.getElementById('happinessCount');
+
+      // Update global stats display
+      freedomCount.textContent = choices.freedom;
+      happinessCount.textContent = choices.happiness;
+
+      choiceBtn.addEventListener('click', function() {
+        modal.style.display = 'flex';
+      });
+
+      function simulateSystemFreeze() {
+        // Create a realistic BSOD/freeze overlay
+        const freezeOverlay = document.createElement('div');
+        freezeOverlay.style.position = 'fixed';
+        freezeOverlay.style.top = '0';
+        freezeOverlay.style.left = '0';
+        freezeOverlay.style.width = '100vw';
+        freezeOverlay.style.height = '100vh';
+        freezeOverlay.style.backgroundColor = '#0078d7';
+        freezeOverlay.style.color = 'white';
+        freezeOverlay.style.fontFamily = 'Consolas, monospace';
+        freezeOverlay.style.fontSize = '1.5rem';
+        freezeOverlay.style.zIndex = '99999';
+        freezeOverlay.style.padding = '2rem';
+        freezeOverlay.style.cursor = 'none';
+        freezeOverlay.innerHTML = `
+          <div style="max-width:800px; margin: 0 auto;">
+            <div style="font-size:4rem; margin-bottom:2rem;">:(</div>
+            <div>Your device ran into a problem and needs to restart.</div>
+            <div style="margin-top:1rem;">0% complete</div>
+            <div style="margin-top:3rem; font-size:1rem;">
+              Stop code: CRITICAL_DYSTOPIA_FAILURE<br>
+              Collecting error data...<br>
+              DO NOT TURN OFF YOUR DEVICE
+            </div>
+            <div id="freezeCountdown" style="margin-top:3rem;"></div>
+          </div>
+        `;
+
+        // Block all keyboard input
+        const blockInput = (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          e.stopImmediatePropagation();
+          return false;
+        };
+
+        // Add to page and block inputs
+        document.body.appendChild(freezeOverlay);
+        document.addEventListener('keydown', blockInput, true);
+        document.addEventListener('keyup', blockInput, true);
+        document.addEventListener('keypress', blockInput, true);
+        document.body.style.overflow = 'hidden';
+
+        // Realistic countdown
+        let seconds = 10;
+        const countdownEl = document.getElementById('freezeCountdown');
+        const timer = setInterval(() => {
+          seconds--;
+          countdownEl.textContent = `Resuming in ${seconds}...`;
+
+          if(seconds <= 0) {
+            clearInterval(timer);
+            freezeOverlay.remove();
+            document.removeEventListener('keydown', blockInput, true);
+            document.removeEventListener('keyup', blockInput, true);
+            document.removeEventListener('keypress', blockInput, true);
+            document.body.style.overflow = '';
+
+            // Show "recovered" notification
+            const recovery = document.createElement('div');
+            recovery.innerHTML = `
+              <div style="position:fixed; bottom:20px; right:20px; padding:1rem;
+              background:black; color:white; border:1px solid green; z-index:9999;">
+                <i class="fas fa-check-circle"></i> System recovered
+              </div>
+            `;
+            document.body.appendChild(recovery);
+            setTimeout(() => recovery.remove(), 3000);
+          }
+        }, 1000);
+      }
+
+      freedomChoice.addEventListener('click', function() {
+        choices.freedom++;
+        localStorage.setItem('dystopianChoices', JSON.stringify(choices));
+        freedomCount.textContent = choices.freedom;
+
+        modal.style.display = 'none';
+        simulateSystemFreeze();
+      });
+
+      happinessChoice.addEventListener('click', function() {
+        choices.happiness++;
+        localStorage.setItem('dystopianChoices', JSON.stringify(choices));
+        happinessCount.textContent = choices.happiness;
+        localStorage.setItem('dystopianDegraded', 'true');
+
+        modal.style.display = 'none';
+        degradeWebsite();
+      });
+
+      function degradeWebsite() {
+        document.body.classList.add('body-degraded');
+
+        const notification = document.createElement('div');
+        notification.innerHTML = `
+          <div style="position:fixed; bottom:20px; right:20px; padding:1rem;
+          background:rgba(0,0,0,0.8); border:1px solid red; z-index:1001;">
+            <i class="fas fa-exclamation-triangle"></i>
+            ALL PAGES have been degraded for everyone
+          </div>
+        `;
+        document.body.appendChild(notification);
+
+        setTimeout(() => notification.remove(), 5000);
+      }
+
+      function resetDegradation() {
+        localStorage.removeItem('dystopianDegraded');
+        document.body.classList.remove('body-degraded');
+        alert("Website degradation reset! Refresh other pages to see changes.");
+      }
+    });
+  </script>
+</body>
+</html>

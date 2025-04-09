@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ending: 1984</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Ending: Down with Big Brother</h1>
+    <a href="story.html" class="btn">← Restart Story</a>
+  </header>
+  <script>
+    // Check for global degradation setting
+    if (localStorage.getItem('dystopianDegraded') === 'true') {
+      document.body.classList.add('body-degraded');
+
+      // Optional: Show small indicator
+      const degradedNotice = document.createElement('div');
+      degradedNotice.innerHTML = `
+        <div style="position:fixed; bottom:10px; left:10px; padding:5px 10px;
+        background:rgba(255,0,0,0.3); border-left:3px solid red; font-size:0.8rem;">
+          <i class="fas fa-triangle-exclamation"></i> Collective Happiness Degraded
+        </div>
+      `;
+      document.body.appendChild(degradedNotice);
+    }
+  </script>
+
+  <main class="story-container">
+    <div id="story-text">
+      <p>You and John bomb the Ministry of Love. For a moment, the telescreens go dark. The proles riot in the streets.</p>
+      <p>But O’Brien captures you. In Room 101, he straps a cage of rats to your face. "Do it to Julia!" you scream. Released but broken, you sit at a café, sipping Victory Gin. You love Big Brother.</p>
+      <div class="ending-theme">
+        <strong>Theme:</strong> Rebellion is futile under totalitarianism.
+      </div>
+    </div>
+    <a href="index.html" class="btn">Return to Home</a>
+  </main>
+</body>
+</html>

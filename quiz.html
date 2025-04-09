@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Which Dystopian Character Are You?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === CYBERPUNK NEON THEME === */
+    :root {
+      --neon-pink: #ff2a6d;
+      --neon-blue: #05d9e8;
+      --neon-purple: #d300c5;
+      --neon-green: #0afeb7;
+      --neon-yellow: #f9f002;
+      --dark-bg: #0a0a12;
+      --darker-bg: #050508;
+      --grid-color: rgba(5, 217, 232, 0.03);
+    }
+
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background-color: var(--dark-bg);
+      background-image:
+        linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px),
+        linear-gradient(to right, var(--grid-color) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: #e0e0ff;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Orbitron', sans-serif;
+      text-transform: uppercase;
+    }
+
+    .quiz-container {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(20, 20, 30, 0.9);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(255, 42, 109, 0.2);
+      border: 1px solid rgba(5, 217, 232, 0.1);
+    }
+
+    /* Progress bar */
+    .progress-bar {
+      height: 6px;
+      background: rgba(5, 217, 232, 0.1);
+      margin-bottom: 2rem;
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+      border-radius: 3px;
+      transition: width 0.4s ease;
+      box-shadow: 0 0 10px var(--neon-pink);
+    }
+
+    /* Start screen */
+    #start-screen {
+      text-align: center;
+    }
+
+    #start-screen h1 {
+      font-size: 2.5rem;
+      background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(5, 217, 232, 0.3);
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+    }
+
+    #start-screen p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: var(--neon-blue);
+    }
+
+    /* Quiz screen */
+    #quiz-screen {
+      display: none;
+    }
+
+    .question {
+      font-size: 1.3rem;
+      margin-bottom: 2rem;
+      color: var(--neon-green);
+      text-shadow: 0 0 5px rgba(10, 254, 183, 0.3);
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    /* Option buttons */
+    .option-btn {
+      padding: 1.2rem;
+      background: rgba(40, 40, 60, 0.7);
+      color: white;
+      border: none;
+      border-left: 4px solid var(--neon-purple);
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      text-align: left;
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .option-btn:hover {
+      background: rgba(60, 60, 90, 0.9);
+      transform: translateX(10px);
+      box-shadow: 0 0 15px rgba(210, 0, 197, 0.3);
+    }
+
+    .option-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+      );
+      transition: 0.5s;
+    }
+
+    .option-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Result screen */
+    .result-screen {
+      text-align: center;
+      display: none;
+    }
+
+    .character-card {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2rem;
+      border-radius: 10px;
+      margin: 2rem 0;
+      border-left: 4px solid var(--neon-yellow);
+      box-shadow: 0 0 20px rgba(249, 240, 2, 0.1);
+    }
+
+    .character-card h3 {
+      color: var(--neon-yellow);
+      margin-top: 0;
+      font-size: 1.8rem;
+    }
+
+    .result-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    /* Buttons */
+    .neon-btn {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 0;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.4s;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 10px currentColor;
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .neon-btn i {
+      margin-right: 10px;
+    }
+
+    .quiz-start-btn {
+      background: linear-gradient(135deg, var(--neon-yellow) 0%, #d4b800 100%);
+      color: #111;
+      text-shadow: 0 0 5px rgba(255,255,255,0.5);
+    }
+
+    .restart-btn {
+      background: linear-gradient(135deg, var(--neon-pink) 0%, #cc0044 100%);
+      color: white;
+    }
+
+    .home-btn {
+      background: linear-gradient(135deg, var(--neon-blue) 0%, #0088cc 100%);
+      color: white;
+      text-decoration: none;
+    }
+
+    .neon-btn:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px currentColor;
+    }
+
+    /* Neon shine effect */
+    .neon-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(255,255,255,0.8) 50%,
+        transparent 55%
+      );
+      transform: rotate(30deg);
+      transition: all 0.6s;
+      opacity: 0;
+    }
+
+    .neon-btn:hover::before {
+      opacity: 0.7;
+      animation: neonShine 1.5s linear infinite;
+    }
+
+    @keyframes neonShine {
+      0% { transform: rotate(30deg) translate(-30%, -30%); }
+      100% { transform: rotate(30deg) translate(30%, 30%); }
+    }
+  </style>
+</head>
+<script>
+    // Check for global degradation setting
+    if (localStorage.getItem('dystopianDegraded') === 'true') {
+      document.body.classList.add('body-degraded');
+
+      // Optional: Show small indicator
+      const degradedNotice = document.createElement('div');
+      degradedNotice.innerHTML = `
+        <div style="position:fixed; bottom:10px; left:10px; padding:5px 10px;
+        background:rgba(255,0,0,0.3); border-left:3px solid red; font-size:0.8rem;">
+          <i class="fas fa-triangle-exclamation"></i> Collective Happiness Degraded
+        </div>
+      `;
+      document.body.appendChild(degradedNotice);
+    }
+  </script>
+<body>
+  <div class="quiz-container">
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+    <div id="start-screen">
+      <h1>Which Dystopian Character Are You?</h1>
+      <p>Answer honestly to discover your match from <em>Brave New World</em> or <em>1984</em>.</p>
+      <button onclick="startQuiz()" class="neon-btn quiz-start-btn">
+        <i class="fas fa-terminal"></i> BEGIN QUIZ
+      </button>
+    </div>
+
+    <div id="quiz-screen">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+    </div>
+
+    <div id="result-screen" class="result-screen">
+      <h2>Your Result:</h2>
+      <div class="character-card" id="character-result"></div>
+      <div class="result-buttons">
+        <button onclick="resetQuiz()" class="neon-btn restart-btn">
+          <i class="fas fa-redo"></i> TAKE QUIZ AGAIN
+        </button>
+        <a href="index.html" class="neon-btn home-btn">
+          <i class="fas fa-home"></i> RETURN TO HOME
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  // Question sets (3 combinations)
+  const questionSets = [
+    // Set 1
+    [
+      {
+        question: "How do you handle stress?",
+        options: [
+          { text: "Take a pill or use distractions", character: "Lenina" },
+          { text: "Question why you're stressed", character: "Winston" },
+          { text: "Embrace the suffering", character: "John" },
+          { text: "Control the situation", character: "O'Brien" }
+        ]
+      },
+      {
+        question: "What's your view on government?",
+        options: [
+          { text: "It keeps society stable", character: "Lenina" },
+          { text: "It's corrupt and must be resisted", character: "Winston" },
+          { text: "It destroys human spirit", character: "John" },
+          { text: "It must rule absolutely", character: "O'Brien" }
+        ]
+      },
+      {
+        question: "Choose a leisure activity:",
+        options: [
+          { text: "Group parties and social events", character: "Lenina" },
+          { text: "Reading forbidden books", character: "Winston" },
+          { text: "Creating art or poetry", character: "John" },
+          { text: "Watching others obey rules", character: "O'Brien" }
+        ]
+      }
+    ],
+    // Set 2
+    [
+      {
+        question: "Your ideal society values:",
+        options: [
+          { text: "Stability and happiness", character: "Lenina" },
+          { text: "Truth and freedom", character: "Winston" },
+          { text: "Art and passion", character: "John" },
+          { text: "Order and power", character: "O'Brien" }
+        ]
+      },
+      {
+        question: "Someone breaks the rules. You:",
+        options: [
+          { text: "Report them immediately", character: "O'Brien" },
+          { text: "Join them secretly", character: "Winston" },
+          { text: "Feel inspired by their courage", character: "John" },
+          { text: "Don't care unless it affects you", character: "Lenina" }
+        ]
+      },
+      {
+        question: "Love is:",
+        options: [
+          { text: "A fun physical activity", character: "Lenina" },
+          { text: "A dangerous rebellion", character: "Winston" },
+          { text: "A sacred, painful experience", character: "John" },
+          { text: "A tool for control", character: "O'Brien" }
+        ]
+      }
+    ],
+    // Set 3
+    [
+      {
+        question: "Your greatest fear is:",
+        options: [
+          { text: "Being alone with your thoughts", character: "Lenina" },
+          { text: "Being watched constantly", character: "Winston" },
+          { text: "Losing your individuality", character: "John" },
+          { text: "Losing power over others", character: "O'Brien" }
+        ]
+      },
+      {
+        question: "What would you change about the world?",
+        options: [
+          { text: "Nothing—it's fine as is", character: "Lenina" },
+          { text: "Expose government lies", character: "Winston" },
+          { text: "Bring back old traditions", character: "John" },
+          { text: "Make everyone obey", character: "O'Brien" }
+        ]
+      },
+      {
+        question: "Your motto:",
+        options: [
+          { text: "Everyone belongs to everyone else", character: "Lenina" },
+          { text: "Freedom is the freedom to say 2+2=4", character: "Winston" },
+          { text: "I want God, poetry, and real danger", character: "John" },
+          { text: "Power is not a means; it is an end", character: "O'Brien" }
+        ]
+      }
+    ]
+  ];
+
+  // Quiz state
+  let currentSet = [];
+  let currentQuestionIndex = 0;
+  let userAnswers = [];
+
+  // Start quiz with random question set
+  function startQuiz() {
+    document.getElementById("start-screen").style.display = "none";
+    document.getElementById("quiz-screen").style.display = "block";
+    currentSet = questionSets[Math.floor(Math.random() * questionSets.length)];
+    currentQuestionIndex = 0;
+    userAnswers = [];
+    loadQuestion();
+  }
+
+  // Load current question
+  function loadQuestion() {
+    const question = currentSet[currentQuestionIndex];
+    document.getElementById("question").textContent = question.question;
+
+    // Update progress bar
+    const progressPercent = (currentQuestionIndex / currentSet.length) * 100;
+    document.getElementById("progress").style.width = `${progressPercent}%`;
+
+    const optionsDiv = document.getElementById("options");
+    optionsDiv.innerHTML = "";
+
+    question.options.forEach((option) => {
+      const button = document.createElement("button");
+      button.className = "option-btn";
+      button.textContent = option.text;
+      button.onclick = () => selectOption(option.character);
+      optionsDiv.appendChild(button);
+    });
+  }
+
+  // Handle option selection
+  function selectOption(character) {
+    userAnswers.push(character);
+    currentQuestionIndex++;
+
+    // Update progress bar after moving to next question
+    const progressPercent = (currentQuestionIndex / currentSet.length) * 100;
+    document.getElementById("progress").style.width = `${progressPercent}%`;
+
+    if (currentQuestionIndex < currentSet.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }
+
+  // Calculate and display result
+  function showResult() {
+    document.getElementById("quiz-screen").style.display = "none";
+    document.getElementById("result-screen").style.display = "block";
+
+    // Tally answers
+    const counts = {};
+    userAnswers.forEach(char => counts[char] = (counts[char] || 0) + 1);
+    const resultChar = Object.keys(counts).reduce((a, b) => counts[a] > counts[b] ? a : b);
+
+    // Display result card
+    const resultDiv = document.getElementById("character-result");
+    let resultHTML = "";
+
+    switch(resultChar) {
+      case "Winston":
+        resultHTML = `
+          <h3>You are Winston Smith (1984)</h3>
+          <p>A quiet rebel who values truth and freedom, even when it's dangerous. You see through propaganda but struggle against overwhelming power.</p>
+          <div style="margin-top: 1rem; color: var(--neon-blue);">"Freedom is the freedom to say that two plus two make four."</div>
+        `;
+        break;
+      case "Julia":
+        resultHTML = `
+          <h3>You are Julia (1984)</h3>
+          <p>You rebel for personal freedom, not ideology. Practical and survival-focused, you find joy in small acts of defiance.</p>
+          <div style="margin-top: 1rem; color: var(--neon-pink);">"I enjoy breaking the rules... but only if it benefits me."</div>
+        `;
+        break;
+      case "John":
+        resultHTML = `
+          <h3>You are John the Savage (Brave New World)</h3>
+          <p>You reject artificial happiness, valuing art, suffering, and individuality. Your ideals make you an outsider.</p>
+          <div style="margin-top: 1rem; color: var(--neon-green);">"I want God, I want poetry, I want real danger, I want freedom!"</div>
+        `;
+        break;
+      case "Lenina":
+        resultHTML = `
+          <h3>You are Lenina Crowne (Brave New World)</h3>
+          <p>You accept societal norms and enjoy life's pleasures. Stability matters more to you than questioning the system.</p>
+          <div style="margin-top: 1rem; color: var(--neon-purple);">"Everyone belongs to everyone else... and I wouldn't have it any other way."</div>
+        `;
+        break;
+      case "O'Brien":
+        resultHTML = `
+          <h3>You are O'Brien (1984)</h3>
+          <p>You believe power is everything. Rules exist to be enforced, and rebellion must be crushed—for the greater good.</p>
+          <div style="margin-top: 1rem; color: var(--neon-yellow);">"Power is not a means; it is an end."</div>
+        `;
+        break;
+    }
+
+    resultDiv.innerHTML = resultHTML;
+  }
+
+  // Reset quiz
+  function resetQuiz() {
+    document.getElementById("result-screen").style.display = "none";
+    document.getElementById("start-screen").style.display = "block";
+    document.getElementById("progress").style.width = "0%";
+  }
+</script>
+</body>
+</html>
